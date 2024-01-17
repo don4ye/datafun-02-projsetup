@@ -1,7 +1,6 @@
 # Don_analytics_utils.py
 byline = "Don_analytics_utils Module"
 
-
 # project_folder_creator.py
 '''
 This module provides functions for creating a series of project folders.
@@ -9,7 +8,20 @@ This module provides functions for creating a series of project folders.
 
 import pathlib
 import time
-import Don_analytics_utils
+
+def create_folder(path):
+    '''
+    Create a folder at the specified path.
+
+    Args:
+        path (str): The path for the new folder.
+
+    Returns:
+        None
+    '''
+    folder_path = pathlib.Path(path)
+    print(f"Creating folder: {folder_path}")
+    folder_path.mkdir(exist_ok=True)
 
 def create_folders_for_range(start_year, end_year):
     '''
@@ -23,9 +35,7 @@ def create_folders_for_range(start_year, end_year):
         None
     '''
     for year in range(start_year, end_year + 1):
-        folder_path = pathlib.Path.cwd().joinpath(str(year))
-        print(f"Creating folder: {folder_path}")
-        folder_path.mkdir(exist_ok=True)
+        create_folder(str(year))
 
 def create_folders_from_list(folder_list, to_lowercase=False, remove_spaces=False):
     '''
@@ -44,9 +54,7 @@ def create_folders_from_list(folder_list, to_lowercase=False, remove_spaces=Fals
             folder_name = folder_name.lower()
         if remove_spaces:
             folder_name = folder_name.replace(' ', '')
-        folder_path = pathlib.Path.cwd().joinpath(folder_name)
-        print(f"Creating folder: {folder_path}")
-        folder_path.mkdir(exist_ok=True)
+        create_folder(folder_name)
 
 def create_prefixed_folders(folder_list, prefix):
     '''
@@ -59,10 +67,9 @@ def create_prefixed_folders(folder_list, prefix):
     Returns:
         None
     '''
-    folder_paths = [pathlib.Path.cwd().joinpath(prefix + name) for name in folder_list]
+    folder_paths = [f"{prefix}{name}" for name in folder_list]
     for folder_path in folder_paths:
-        print(f"Creating folder: {folder_path}")
-        folder_path.mkdir(exist_ok=True)
+        create_folder(folder_path)
 
 def create_folders_periodically(duration_secs):
     '''
@@ -77,9 +84,7 @@ def create_folders_periodically(duration_secs):
     start_time = time.time()
     while time.time() - start_time < duration_secs:
         timestamp = time.strftime('%Y%m%d%H%M%S')
-        folder_path = pathlib.Path.cwd().joinpath(f"periodic_folder_{timestamp}")
-        print(f"Creating folder: {folder_path}")
-        folder_path.mkdir(exist_ok=True)
+        create_folder(f"periodic_folder_{timestamp}")
         time.sleep(1)  # Sleep for 1 second between folder creations
 
 def main():
@@ -87,7 +92,7 @@ def main():
     Main function to demonstrate module capabilities.
     '''
     # Print byline from imported module
-    print(f"Byline: {Don_analytics_utils.byline}")
+    print(f"Byline: {byline}")
 
     # Call function 1 to create folders for a range (e.g. years)
     create_folders_for_range(start_year=2020, end_year=2023)
