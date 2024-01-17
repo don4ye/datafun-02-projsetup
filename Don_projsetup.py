@@ -2,7 +2,6 @@
 byline = "Don_analytics_utils Module"
 
 
-
 # project_folder_creator.py
 '''
 This module provides functions for creating a series of project folders.
@@ -10,7 +9,6 @@ This module provides functions for creating a series of project folders.
 
 import pathlib
 import time
-
 import Don_analytics_utils
 
 def create_folders_for_range(start_year, end_year):
